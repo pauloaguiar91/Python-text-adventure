@@ -3,9 +3,10 @@ from player import Player
 
 
 class Game():
-	GRID = ([0,0], [0,1], [0,2],
-			[1,0], [1,1], [1,2],
-			[2,0], [2,1], [2,2])
+	GRID = ([0, 0], [0, 1], [0, 2], [0, 3],
+			[1, 0], [1, 1], [1, 2], [1, 3],
+			[2, 0], [2, 1], [2, 2], [2, 3],
+			[2, 0], [3, 1], [3, 2], [3, 3])
 
 
 	def showCurrentGrid(self):
@@ -13,8 +14,15 @@ class Game():
 		#for index, cell in enumerate(self.GRID)
 		#	if index in [0, 1, 2, 3, 4, 6, 7]
 
-	def createCharacter(self, playerData):
-		player = Player(playerData)
+	def runGameLoop(self, player): 
+		while True:
+			self.showCurrentGrid()
+			player.move()	
+
+	def createCharacter(self):
+		player = Player(self.name, self.profession)
+		print(player)
+		self.runGameLoop(player)
 
 	
 	def getCharacterClass(self):
@@ -30,19 +38,17 @@ class Game():
 		else:
 			self.getCharacterClass()
 			return
-
-		print("Thanks {}, you are a {}.".format(self.name, self.profession))
-		self.createCharacter((self.name, self.profession))
-		self.showCurrentGrid()
+		
+		self.createCharacter()
+		#self.showCurrentGrid()
 
 
 	def getCharacterInformation(self):
-		
-		self.name = input("Player Name: ")
+		self.name = input("Player Name: ").title()
 
 		if len(self.name) >= 1:
 			print("---------------------\n")
-			print("Welcome {}".format(self.name))
+			print("------Welcome {}-----\n".format(self.name))
 			print("---------------------\n")
 			self.getCharacterClass()
 
